@@ -1,0 +1,28 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Product 1",
+            "category": "Perfume",
+            "imgPaths": ["/images/Product1img1.jpeg","/images/product1img2.jpeg","/images/product1img3.jpeg"],
+            "size": " ",
+            "price": 35.00
+        },
+        {
+            "id": 2,
+            "title": "Product 2",
+            "category": "Perfume",
+            "imgPaths": ["/images/Product2img1.jpeg","/images/product2img2.jpeg","/images/product2img3.jpeg"],
+            "size": " ",
+            "price": 30.00
+        },
+        {
+            "id": 3,
+            "title": "Product 3",
+            "category": "Perfume",
+            "imgPaths":["/images/Product3img1.jpeg","/images/product3img2.jpeg","/images/product3img3.jpeg"],
+            "size": " ",
+            "price": 40.00
+        }
+    ]
+}
