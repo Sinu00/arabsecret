@@ -52,10 +52,9 @@ export default function ClickableFiltersSection({ sideFilters, setSideFilters, i
                     </div>
                 )
                 : (
-                <div className="flex w-full mt-0 mb-4 text-xl text-blue-400 hover:cursor-pointer  justify-end">
-                    <button onClick={handleToggleFilters}>Filters</button>
-                </div>
-
+                    <div className="flex w-full mb-1 text-xl text-blue-400 hover:cursor-pointer justify-end xl:hidden">
+                        <button onClick={handleToggleFilters}>Filters</button>
+                    </div>
                 )
             }
         </div>

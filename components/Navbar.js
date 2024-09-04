@@ -3,7 +3,7 @@ import { motion, spring } from "framer-motion"
 
 export default function Navbar({ cartItems }) {
     return (
-        <nav className="w-full flex justify-between items-center py-8 mb-2 sticky top-0 px-4 lg:px-32 bg-gray-100 z-50">
+        <nav className="w-full flex justify-between items-center py-8 sticky top-0 px-4 lg:px-32 bg-gray-100 z-50">
             <Link href="/" className="flex items-center space-x-2">
             <img 
                     src="https://res.cloudinary.com/drc2ky0yw/image/upload/v1725187590/logo_sate6o.png" 
