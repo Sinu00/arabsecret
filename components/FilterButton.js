@@ -10,33 +10,7 @@ export default function FilterButton({ sideFilters, setSideFilters, filterOption
 
     function handleFilterSelect() {
         // Check if null
-        if (!sideFilters) {
-            if (filterCategory === "Clothing") {
-                setSideFilters({
-                    clothing: filterOptionText,
-                    size: null,
-                });
-            } else {
-                setSideFilters({
-                    clothing: null,
-                    size: filterOptionText,
-                });
-            }
-        } else {
-            if (filterCategory === "Clothing") {
-                if (sideFilters.clothing === filterOptionText) {
-                    setSideFilters({ ...sideFilters, clothing: null });
-                } else {
-                    setSideFilters({ ...sideFilters, clothing: filterOptionText });
-                }
-            } else {
-                if (sideFilters.size === filterOptionText) {
-                    setSideFilters({ ...sideFilters, size: null });
-                } else {
-                    setSideFilters({ ...sideFilters, size: filterOptionText });
-                }
-            }
-        }
+
     }
 
 

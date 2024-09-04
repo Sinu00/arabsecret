@@ -1,9 +1,12 @@
-import Link from "next/link";
-import Image from "next/image";
-import { getAllProducts, getProductFromSlug, formatPriceWithDecimals } from "@/utils/products"
-import { motion } from "framer-motion";
-import Head from "next/head";
-import { useState } from "react";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { getAllProducts, getProductFromSlug, formatPriceWithDecimals } from '@/utils/products';
+import { motion } from 'framer-motion';
+import Head from 'next/head';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
 
 export default function ProductPage({ product, cartItems, setCartItems }) {
     const priceWithDecimals = formatPriceWithDecimals(product.price);
@@ -11,41 +14,29 @@ export default function ProductPage({ product, cartItems, setCartItems }) {
 
     function handleAddToCart() {
         let isFound = false;
-    
+
         if (cartItems.length <= 0) {
             setCartItems([{ ...product, quantity: 1, totalPrice: product.price }]);
             return;
         }
-    
+
         const newItems = cartItems.map((item) => {
-            // If an item in the cart matches one we just added
             if (item.slug === product.slug) {
-                // Increase its quantity and update the total price
                 isFound = true;
-                return { 
-                    ...item, 
-                    quantity: item.quantity + 1, 
-                    totalPrice: (item.quantity + 1) * item.price 
+                return {
+                    ...item,
+                    quantity: item.quantity + 1,
+                    totalPrice: (item.quantity + 1) * item.price,
                 };
             }
             return item;
         });
-    
-        // If the item was found, then set cartItems to the new items
+
         if (isFound) {
             setCartItems(newItems);
-        } else {    // Else, set it to all previous cart items and the new one
+        } else {
             setCartItems([...cartItems, { ...product, quantity: 1, totalPrice: product.price }]);
         }
-    }
-    
-
-    function handlePrevImage() {
-        setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.imgPaths.length - 1 : prevIndex - 1));
-    }
-
-    function handleNextImage() {
-        setCurrentImageIndex((prevIndex) => (prevIndex === product.imgPaths.length - 1 ? 0 : prevIndex + 1));
     }
 
     return (
@@ -56,23 +47,46 @@ export default function ProductPage({ product, cartItems, setCartItems }) {
             <header className="mb-4 md:mb-12">
                 <h1 className="font-bold text-3xl md:text-5xl">{product.title}</h1>
             </header>
-            <article className=" md:grid md:grid-cols-2 md:gap-16">
-                <div className="mb-4 aspect-square w-full relative rounded-2xl shadow overflow-hidden md:mb-0">
-                <Image src={product.imgPaths[currentImageIndex]} fill className="object-contain" alt={`${product.title} image ${currentImageIndex + 1}`} priority />
-                    <button onClick={handlePrevImage} className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full">
+            <article className="md:grid md:grid-cols-2 md:gap-16">
+                <div className="mb-4 w-full relative rounded-2xl shadow overflow-hidden md:mb-0">
+                    <Swiper
+                        spaceBetween={50}
+                        slidesPerView={1}
+                        navigation={{
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        }}
+                        pagination={{ clickable: true }}
+                        modules={[Navigation, Pagination]}
+                        onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
+                    >
+                        {product.imgPaths.map((imgPath, index) => (
+                            <SwiperSlide key={index}>
+                                <Image
+                                    src={imgPath}
+                                    width={1000}
+                                    height={750}
+                                    className="object-contain"
+                                    alt={`${product.title} image ${index + 1}`}
+                                    priority
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <div className="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 bg-black bg-opacity-50 rounded-full z-10 cursor-pointer">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 4L8 12L16 20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16 4L8 12L16 20" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                    </button>
-                    <button onClick={handleNextImage} className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full">
+                    </div>
+                    <div className="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 bg-black bg-opacity-50 rounded-full z-10 cursor-pointer">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 4L16 12L8 20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M8 4L16 12L8 20" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                    </button>
+                    </div>
                 </div>
                 <div className="flex flex-col justify-between xl:justify-start">
                     <div className="flex text-3xl justify-between items-center mb-4 md:mb-6 font-bold md:text-5xl md:pb-4 md:border-b-2 md:border-b-gray-300">
-                        <p>${priceWithDecimals}</p>
+                        <p>QAR {priceWithDecimals}</p>
                         <p>{product.size}</p>
                     </div>
                     <div className="flex gap-4 md:flex-col">
@@ -99,35 +113,32 @@ export default function ProductPage({ product, cartItems, setCartItems }) {
                 </div>
             </article>
         </motion.div>
-    )
+    );
 }
 
 export async function getStaticPaths() {
-    // Get the products
     const products = getAllProducts();
 
-    // Create the object with the params key and slug key as the object
     const slugs = products.map((product) => {
         return {
             params: {
                 slug: product.slug,
             },
         };
-    })
+    });
 
     return {
         paths: slugs,
         fallback: false,
-    }
+    };
 }
 
 export async function getStaticProps({ params }) {
-    // Get the one product we want - based on the slug
-    const slug = params.slug
+    const slug = params.slug;
     const product = getProductFromSlug(slug);
     return {
         props: {
             product: product,
-        }
-    }
+        },
+    };
 }

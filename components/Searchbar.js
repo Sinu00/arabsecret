@@ -14,7 +14,7 @@ export default function Searchbar({ searchText, setSearchText }) {
                 name="search"
                 className="w-full placeholder:text-gray-400 focus:outline-0"
                 type="text"
-                placeholder="Search (try it!)"
+                placeholder="Search"
                 autoComplete="off"
             />
         </div>

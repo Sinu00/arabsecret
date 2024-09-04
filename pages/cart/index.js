@@ -54,13 +54,13 @@ export default function CartPage({ cartItems, setCartItems }) {
 
         // Send data to WhatsApp API or backend service
         const formattedMessage = cartItems.map(item => 
-            `Product: ${item.title}, Quantity: ${item.quantity}, Price: $${item.price.toFixed(2)}\n`
+            `*Product:* ${item.title}\n *Quantity:* ${item.quantity}\n *Price:* QAR ${item.price.toFixed(2)}\n`
         ).join("\n");
         
-        const message = `Customer Name: ${name}\nAddress: ${address}\nPhone Number: ${phone}\n\nCart Details:\n${formattedMessage}`;
+        const message = `*Customer Name:* ${name}\n*Address:* ${address}\n*Phone Number:* ${phone}\n\n*Cart Details:*\n${formattedMessage}\n*Total Amount:* QAR${totalAmount}`;
 
         const encodedMessage = encodeURIComponent(message);
-        window.location.href = `https://api.whatsapp.com/send?phone=9778355402&text=${encodedMessage}`;
+        window.location.href = `https://api.whatsapp.com/send?phone=+97477222886&text=${encodedMessage}`;
 
         // Reset the form and cart items
         setName("");
@@ -119,7 +119,7 @@ export default function CartPage({ cartItems, setCartItems }) {
                                     </div>
                                     <div className="flex justify-between">
                                         <div className="flex justify-between gap-2">
-                                            <p>${item.price}</p>
+                                            <p>QAR {item.price}</p>
                                             <p>&bull;</p>
                                             <p>{item.size}</p>
                                         </div>
@@ -151,7 +151,7 @@ export default function CartPage({ cartItems, setCartItems }) {
                     <div className="flex flex-col gap-4 p-4 mt-8 border-t border-t-gray-200">
                         <div className="flex justify-between font-bold text-xl">
                             <p>Total Amount:</p>
-                            <p>${totalAmount}</p>
+                            <p>QAR {totalAmount}</p>
                         </div>
                         <div className="flex flex-col gap-4">
                             <input

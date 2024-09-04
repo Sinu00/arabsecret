@@ -10,15 +10,9 @@ export default function Home() {
       className="flex flex-col md:items-center md:pt-12"
     >
       <Head>
-        <title>timelessthreads</title>
+        <title>Arab Secret</title>
       </Head>
-      <h1 className="font-bold mb-4 text-4xl md:text-5xl">Welcome to timelessthreads!</h1>
-      <p className="max-w-5xl text-gray-600 text-xl mb-8 leading-relaxed md:leading-snug md:text-3xl md:text-center md:mb-12">
-        This is a fake eCommerce vintage store I built to learn
-        and utilize crucial features of NextJS like Static Generation
-        and dynamic routing. It is also built using TailwindCSS. Images
-        are from Depop.
-      </p>
+      <h1 className="font-bold mb-4 text-4xl md:text-5xl">Welcome to Arab Secret</h1>
       <Link href="/products">
         <motion.button
           whileHover={{ scale: 1.1 }}
