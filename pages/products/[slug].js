@@ -11,29 +11,34 @@ export default function ProductPage({ product, cartItems, setCartItems }) {
 
     function handleAddToCart() {
         let isFound = false;
-
+    
         if (cartItems.length <= 0) {
-            setCartItems([{ ...product, quantity: 1 }]);
+            setCartItems([{ ...product, quantity: 1, totalPrice: product.price }]);
             return;
         }
-
+    
         const newItems = cartItems.map((item) => {
             // If an item in the cart matches one we just added
             if (item.slug === product.slug) {
-                // Increase its quantity and say it is found
+                // Increase its quantity and update the total price
                 isFound = true;
-                return { ...item, quantity: item.quantity + 1 }
+                return { 
+                    ...item, 
+                    quantity: item.quantity + 1, 
+                    totalPrice: (item.quantity + 1) * item.price 
+                };
             }
             return item;
-        })
-
+        });
+    
         // If the item was found, then set cartItems to the new items
         if (isFound) {
             setCartItems(newItems);
         } else {    // Else, set it to all previous cart items and the new one
-            setCartItems([...cartItems, { ...product, quantity: 1 }]);
+            setCartItems([...cartItems, { ...product, quantity: 1, totalPrice: product.price }]);
         }
     }
+    
 
     function handlePrevImage() {
         setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.imgPaths.length - 1 : prevIndex - 1));
@@ -56,12 +61,12 @@ export default function ProductPage({ product, cartItems, setCartItems }) {
                 <Image src={product.imgPaths[currentImageIndex]} fill className="object-contain" alt={`${product.title} image ${currentImageIndex + 1}`} priority />
                     <button onClick={handlePrevImage} className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 4L8 12L16 20" stroke="#000" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 4L8 12L16 20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                     <button onClick={handleNextImage} className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 4L16 12L8 20" stroke="#000" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 4L16 12L8 20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </button>
                 </div>

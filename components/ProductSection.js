@@ -30,9 +30,6 @@ export default function ProductSection({ products, searchText, sideFilters }) {
 
     // TODO: Add text that pops up if no products are displayed
 
-    console.log(searchText);
-    console.log(productsToDisplay);
-
     if (productsToDisplay.length > 0) {
         return (
             <motion.div
