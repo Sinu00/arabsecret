@@ -22,7 +22,7 @@ export default function ProductSection({ products, searchText, sideFilters }) {
 
         // Create some sort of condition (isInSideFilter) and create another isInSearch
         let isInSideFilter = isFilterMatch(product, sideFilters)
-        let isInSearch = (productTitle.includes(searchText) || productSlugSpaced.includes(searchText))
+        let isInSearch = (productTitle.includes(searchText.toLowerCase()) || productSlugSpaced.includes(searchText))
 
 
         return isInSideFilter && isInSearch;

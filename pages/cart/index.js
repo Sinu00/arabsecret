@@ -111,7 +111,7 @@ export default function CartPage({ cartItems, setCartItems }) {
                                 className="p-4 bg-white shadow rounded-2xl flex items-center"
                             >
                                 <div className="aspect-square w-1/3 relative">
-                                    <img src={item.imgPaths[0]} alt={item.title} className="object-contain" />
+                                    <img src={item.imgPaths[0]} alt={item.title} className="object-contain rounded-2xl" />
                                 </div>
                                 <div className="flex-1 pl-4">
                                     <div className="flex flex-col gap-1 pb-3 border-b border-b-gray-200 mb-3">
