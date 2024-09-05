@@ -6,7 +6,7 @@
             "category": "Perfume",
             "imgPaths": ["/images/SHEIKSECRET.jpeg","/images/product1img2.jpeg","/images/product1img3.jpeg"],
             "size": " ",
-            "price": 35.00
+            "price": 65.00
         },
         {
             "id": 2,
@@ -14,7 +14,7 @@
             "category": "Perfume",
             "imgPaths": ["/images/QATRA.jpeg","/images/product2img2.jpeg","/images/product2img3.jpeg"],
             "size": " ",
-            "price": 30.00
+            "price": 65.00
         },
         {
             "id": 3,
@@ -22,7 +22,7 @@
             "category": "Perfume",
             "imgPaths":["/images/ARABLEGEND.jpeg","/images/product3img2.jpeg","/images/product3img3.jpeg"],
             "size": " ",
-            "price": 40.00
+            "price": 75.00
         }
     ]
 }
