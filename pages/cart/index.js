@@ -20,7 +20,9 @@ const itemStagger = {
 
 export default function CartPage({ cartItems, setCartItems }) {
     const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
+    const [zone, setZone] = useState("");
+    const [street, setStreet] = useState("");
+    const [buildingNumber, setBuildingNumber] = useState("");
     const [phone, setPhone] = useState("");
     const [error, setError] = useState("");
 
@@ -47,8 +49,8 @@ export default function CartPage({ cartItems, setCartItems }) {
     }
 
     const handleCheckout = () => {
-        if (!name || !address || !phone || isNaN(phone)) {
-            setError("Please provide valid name, address, and phone number.");
+        if (!name || !zone || !street || !buildingNumber || !phone || isNaN(phone)) {
+            setError("Please provide valid name, zone, street, building number, and phone number.");
             return;
         }
 
@@ -57,14 +59,16 @@ export default function CartPage({ cartItems, setCartItems }) {
             `*Product:* ${item.title}\n *Quantity:* ${item.quantity}\n *Price:* QAR ${item.price.toFixed(2)}\n`
         ).join("\n");
         
-        const message = `*Customer Name:* ${name}\n*Address:* ${address}\n*Phone Number:* ${phone}\n\n*Cart Details:*\n${formattedMessage}\n*Total Amount:* QAR${totalAmount}`;
+        const message = `*Customer Name:* ${name}\n*Zone:* ${zone}\n*Street:* ${street}\n*Building Number:* ${buildingNumber}\n*Phone Number:* ${phone}\n\n*Cart Details:*\n${formattedMessage}\n*Total Amount:* QAR ${totalAmount}`;
 
         const encodedMessage = encodeURIComponent(message);
         window.location.href = `https://api.whatsapp.com/send?phone=+97477222886&text=${encodedMessage}`;
 
         // Reset the form and cart items
         setName("");
-        setAddress("");
+        setZone("");
+        setStreet("");
+        setBuildingNumber("");
         setPhone("");
         setCartItems([]);
     }
@@ -163,9 +167,23 @@ export default function CartPage({ cartItems, setCartItems }) {
                             />
                             <input
                                 type="text"
-                                placeholder="Address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                placeholder="Zone"
+                                value={zone}
+                                onChange={(e) => setZone(e.target.value)}
+                                className="p-2 border rounded"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Street"
+                                value={street}
+                                onChange={(e) => setStreet(e.target.value)}
+                                className="p-2 border rounded"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Building Number"
+                                value={buildingNumber}
+                                onChange={(e) => setBuildingNumber(e.target.value)}
                                 className="p-2 border rounded"
                             />
                             <input
